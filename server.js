@@ -1,6 +1,7 @@
 // DEPENDENCIES //
 const express = require('express');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override')
 require('dotenv').config()
 
 // CONFIGURATION //
@@ -8,6 +9,14 @@ const app = express();
 
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use( ( req, res, next ) => { // enables method overide on a tags
+    if ( req.query._method == 'DELETE' ) {
+        req.method = 'DELETE';
+        req.url = req.path;
+    }       
+    next(); 
+});
 
 // DATABASE SETTINGS //
 const db = mongoose.connection;
@@ -23,8 +32,8 @@ mongoose.connect(mongodbURI, {
 }, () => ('connected to mongodb at', mongodbURI));
 
 // db error handeling 
-// db.on('error', err => console.log(err.message + ' is mongod not running?'));
-// db.on('disconnected', () => console.log('mongo disconnected'));
+db.on('error', err => console.log(err.message + ' is mongod not running?'));
+db.on('disconnected', () => console.log('mongo disconnected'));
 
 // MODELS //
 const Artwork = require('./models/artwork');
@@ -88,7 +97,9 @@ app.put('/artworks/:id', (req, res) => {
 
 // destroy
 app.delete('/artworks/:id', (req, res) => {
-    res.send('destroy#delete');
+    Artwork.findByIdAndDelete(req.params.id, (error, deletedArtwork) => {
+        res.redirect('/artworks')
+    });
 });
 
 app.listen(3000, () => {
