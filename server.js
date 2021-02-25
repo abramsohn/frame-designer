@@ -69,7 +69,11 @@ app.post('/artworks', (req, res) => {
 
 // show
 app.get('/artworks/:id', (req, res) => {
-    res.render('show.ejs');
+    Artwork.findById(req.params.id, (error, foundArtwork) => {
+        res.render('show.ejs', {
+            artwork: foundArtwork
+        });
+    });
 });
 
 // edit

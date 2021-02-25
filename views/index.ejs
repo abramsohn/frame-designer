@@ -11,7 +11,7 @@
     <ul>
         <% artworks.forEach(artwork => { %>
          <li>
-             <%= artwork.title %>
+            <a href="/artworks/<%= artwork.id %>"> <%= artwork.title %></a>
          </li>
         <% }) %>
     </ul>

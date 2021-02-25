@@ -16,4 +16,4 @@ const seed = [
     }
   ]
 
-module.exports = seed
+module.exports = seed;
