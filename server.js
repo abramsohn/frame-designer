@@ -15,17 +15,17 @@ const app = express();
 // ROUTES //
 // root
 app.get('/', (req, res) => {
-    res.send('root#get');
+    res.redirect('/artworks');
 });
 
 // index
 app.get('/artworks', (req, res) => {
-    res.send('index#get');
+    res.render('index.ejs');
 });
 
 // new
 app.get('/artworks/new', (req, res) => {
-    res.send('new#get');
+    res.render('new.ejs');
 });
 
 // create
@@ -35,22 +35,22 @@ app.post('/artworks', (req, res) => {
 
 // show
 app.get('/artworks/:id', (req, res) => {
-    res.send('root#get');
+    res.render('show.ejs');
 });
 
 // edit
 app.get('/artworks/:id/edit', (req, res) => {
-    res.send('root#get');
+    res.render('edit.ejs');
 });
 
 // update
 app.put('/artworks/:id', (req, res) => {
-    res.send('update#get');
+    res.send('update#put');
 });
 
 // destroy
 app.delete('/artworks/:id', (req, res) => {
-    res.send('root#get');
+    res.send('destroy#delete');
 });
 
 
