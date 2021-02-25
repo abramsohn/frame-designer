@@ -1,17 +1,34 @@
 // DEPENDENCIES //
 const express = require('express');
-const app = express();
+const mongoose = require('mongoose');
+require('dotenv').config()
 
 // CONFIGURATION //
-
-// MIDDLEWARE
+const app = express();
 
 // DATABASE SETTINGS //
+const db = mongoose.connection;
+const PORT = process.env.PORT;
+const mongodbURI = process.env.MONGODBURI + process.env.DBNAME;
+
+// conect to db
+mongoose.connect(mongodbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+}, () => ('connected to mongodb at', mongodbURI));
+
+// db error handeling 
+db.on('error', err => console.log(err.message + ' is mongod not running?'));
+db.on('disconnected', () => console.log('mongo disconnected'));
 
 // MODELS //
+Artwork = require('./models/artwork');
 
 // CONTROLLERS //
 
+// MIDDLEWARE
+app.use(express.urlencoded({ extended: true }))
 // ROUTES //
 // root
 app.get('/', (req, res) => {
@@ -55,6 +72,6 @@ app.delete('/artworks/:id', (req, res) => {
 
 
 app.listen(3000, () => {
-    console.log('Express listening');
+    console.log('Express listening at', PORT);
 });
 
