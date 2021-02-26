@@ -7,6 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Edit</h1>
+    <form action="/artworks/<%= artwork.id %>?_method=PUT" method="POST">
+
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="<%= artwork.title %>">
+
+        <label for="height">Height</label>
+        <input type="text" id="height" name="height" value="<%= artwork.height %>">
+
+        <label for="width">Width</label>
+        <input type="text" id="width" name="width" value="<%= artwork.width %>">
+
+        <input type="Submit">
+    </form>
 </body>
 </html>

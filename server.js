@@ -87,12 +87,21 @@ app.get('/artworks/:id', (req, res) => {
 
 // edit
 app.get('/artworks/:id/edit', (req, res) => {
-    res.render('edit.ejs');
+    Artwork.findById(req.params.id, (error, foundArtwork) => {
+        res.render('edit.ejs', {
+            artwork: foundArtwork
+        })
+    });
 });
 
 // update
 app.put('/artworks/:id', (req, res) => {
-    res.send('update#put');
+    console.log('+++++++++++',req.params);
+    Artwork.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedArtwork) => {
+        res.render('show.ejs', {
+            artwork: updatedArtwork,
+        });
+    });
 });
 
 // destroy

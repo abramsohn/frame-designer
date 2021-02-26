@@ -10,6 +10,7 @@
     <h1><%= artwork.title %> </h1>
     <p>this artwork is <%=artwork.height%> X <%=artwork.width%></p>
 
-    <a href="/artworks/<%= artwork.id %>?_method=DELETE">Delete this Artwork</a>
+    <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a>
+    <a href="/artworks/<%= artwork.id %>?_method=DELETE">Delete This Artwork</a>
 </body>
 </html>
