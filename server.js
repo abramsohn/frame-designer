@@ -37,6 +37,7 @@ db.on('disconnected', () => console.log('mongo disconnected'));
 
 // MODELS //
 const Artwork = require('./models/artwork');
+const User = require('./models/user');
 
 // CONTROLLERS //
 
@@ -96,7 +97,7 @@ app.get('/artworks/:id/edit', (req, res) => {
 
 // update
 app.put('/artworks/:id', (req, res) => {
-    console.log('+++++++++++',req.params);
+    console.log('+++++++++++', req.params);
     Artwork.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedArtwork) => {
         res.render('show.ejs', {
             artwork: updatedArtwork,
