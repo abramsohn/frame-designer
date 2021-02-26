@@ -3,21 +3,22 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override')
-require('dotenv').config()
+require('dotenv').config();
 
 // CONFIGURATION //
 const app = express();
 
 // MIDDLEWARE
-app.use(express.urlencoded({ extended: true }))
-app.use(methodOverride('_method'))
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
 app.use(
     session({
         secret: process.env.SECRET,
         resave: false,
         saveUninitialized: false
-    });
+    })
 );
 
 // enables DELETE method overide on anchor tags

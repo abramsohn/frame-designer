@@ -16,7 +16,9 @@ router.get('/seed', (req, res) => {
 });
 // new
 router.get('/new', (req, res) => {
-    res.render('users/new.ejs');
+    res.render('layout/index.ejs', {
+        template: 'users/new.ejs',
+    });
 });
 // create
 router.post('/', (req, res) => {

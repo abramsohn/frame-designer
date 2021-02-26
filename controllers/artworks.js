@@ -14,9 +14,18 @@ router.get('/seed', (req, res) => {
 });
 
 // index
+// router.get('/', (req, res) => {
+//     Artwork.find({}, (error, allArtworks) => {
+//         res.render('artworks/index.ejs', {
+//             artworks: allArtworks,
+//         });
+//     });
+// });
+
 router.get('/', (req, res) => {
     Artwork.find({}, (error, allArtworks) => {
-        res.render('artworks/index.ejs', {
+        res.render('layout/index.ejs', {
+            template: 'artworks/index.ejs',
             artworks: allArtworks,
         });
     });
@@ -24,7 +33,9 @@ router.get('/', (req, res) => {
 
 // new
 router.get('/new', (req, res) => {
-    res.render('artworks/new.ejs');
+    res.render('layout/index.ejs', {
+        template: 'artworks/new.ejs'
+    })
 });
 
 // create
@@ -38,7 +49,8 @@ router.post('/', (req, res) => {
 // show
 router.get('/:id', (req, res) => {
     Artwork.findById(req.params.id, (error, foundArtwork) => {
-        res.render('artworks/show.ejs', {
+        res.render('layout/index.ejs', {
+            template: 'artworks/show.ejs',
             artwork: foundArtwork
         });
     });
@@ -47,7 +59,8 @@ router.get('/:id', (req, res) => {
 // edit
 router.get('/:id/edit', (req, res) => {
     Artwork.findById(req.params.id, (error, foundArtwork) => {
-        res.render('artworks/edit.ejs', {
+        res.render('layout/index.ejs', {
+            template: 'artworks/edit.ejs',
             artwork: foundArtwork
         })
     });
@@ -56,7 +69,8 @@ router.get('/:id/edit', (req, res) => {
 // update
 router.put('/:id', (req, res) => {
     Artwork.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedArtwork) => {
-        res.render('artworks/show.ejs', {
+        res.render('layout/index.ejs', {
+            template: 'artworks/show.ejs',
             artwork: updatedArtwork,
         });
     });
