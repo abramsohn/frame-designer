@@ -1,6 +1,7 @@
 // DEPENDENCIES //
 const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const methodOverride = require('method-override')
 require('dotenv').config()
 
@@ -10,7 +11,17 @@ const app = express();
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-app.use( ( req, res, next ) => { // enables method overide on a tags
+
+app.use(
+    session({
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: false
+    });
+);
+
+// enables DELETE method overide on anchor tags
+app.use( ( req, res, next ) => { 
     if ( req.query._method == 'DELETE' ) {
         req.method = 'DELETE';
         req.url = req.path;
@@ -44,6 +55,9 @@ app.use('/artworks', artworksController);
 
 const usersController = require('./controllers/users');
 app.use('/users', usersController);
+
+const sessionsController = require('./controllers/sessions');
+app.use('/sessions', sessionsController);
 
 // ROUTES //
 // root
