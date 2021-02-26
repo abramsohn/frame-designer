@@ -2,7 +2,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
+// const path = require('path');
+
 require('dotenv').config();
 
 // CONFIGURATION //
@@ -11,6 +13,7 @@ const app = express();
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+// app.use(express.static(path.join(__dirname, './public')));
 app.use(express.static('public'));
 
 app.use(
