@@ -9,7 +9,7 @@ const Artwork = require('../models/artwork.js');
 const artworkSeed = require('../seeds/artwork.js')
 router.get('/seed', (req, res) => {
     Artwork.create(artworkSeed, (error, data) => {
-        res.redirect('artworks');
+        res.redirect('/');
     });
 });
 

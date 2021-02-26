@@ -42,6 +42,9 @@ const User = require('./models/user');
 const artworksController = require('./controllers/artworks');
 app.use('/artworks', artworksController);
 
+const usersController = require('./controllers/users');
+app.use('/users', usersController);
+
 // ROUTES //
 // root
 app.get('/', (req, res) => {
