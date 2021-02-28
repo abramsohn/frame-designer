@@ -3,11 +3,11 @@ const password = bcrypt.hashSync('password', bcrypt.genSaltSync(10));
 
 const seed = [
     {
-      name: 'user1',
+      username: 'user1',
       password: password,
     },
     {
-      name: 'user2',
+      username: 'user2',
       password: password,
     }
   ];

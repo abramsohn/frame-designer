@@ -6,16 +6,20 @@ const router = express.Router();
 const Artwork = require('../models/artwork.js');
 
 // seed 
-const artworkSeed = require('../seeds/artwork.js')
-router.get('/seed', (req, res) => {
-    Artwork.create(artworkSeed, (error, data) => {
-        res.redirect('/');
-    });
-});
+// const artworkSeed = require('../seeds/artwork.js')
+// router.get('/seed', (req, res) => {
+    // const user1 = User.find({username: 'user1'});
+    // const user2 = User.find({username: 'user2'});
+
+    // Artwork.create(artworkSeed, (error, data) => {
+        // console.log(artworkSeed);
+        // res.redirect('/');
+    // });
+// });
 
 // index
 router.get('/', (req, res) => {
-    Artwork.find({}, (error, allArtworks) => {
+    Artwork.find({user: req.session.currentUser}, (error, allArtworks) => {
         res.render('layout/index.ejs', {
             artworks: allArtworks,
             currentUser: req.session.currentUser,
@@ -27,15 +31,17 @@ router.get('/', (req, res) => {
 // new
 router.get('/new', (req, res) => {
     res.render('layout/index.ejs', {
-        template: 'artworks/new.ejs'
-    })
+        template: 'artworks/new.ejs',
+        currentUser: req.session.currentUser,
+    });
 });
 
 // create
 router.post('/', (req, res) => {
+    req.body.user = req.session.currentUser;
     Artwork.create(req.body, (error, createdArtwork) => {
         console.log(createdArtwork)
-        res.redirect('/')
+        res.redirect('/artworks')
     });
 });
 

@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
         } else { // if user is found
             if(bcrypt.compareSync(req.body.password, foundUser.password)) {
                 req.session.currentUser = foundUser;
-                res.redirect('/');
+                res.redirect('/artworks');
             } else {
                 res.send('username and password did not match'); // TODO: Handle error better
             }
