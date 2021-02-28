@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const path = require('path');
+
+
 // const path = require('path');
 
 require('dotenv').config();
@@ -14,7 +17,9 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 // app.use(express.static(path.join(__dirname, './public')));
-app.use(express.static('public'));
+// app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, './public')))
+
 
 app.use(
     session({
@@ -66,11 +71,12 @@ app.use('/sessions', sessionsController);
 // ROUTES //
 // root
 app.get('/', (req, res) => {
-    console.log(req.currentUser)
-    res.redirect('/artworks');
+    res.render('layout/index.ejs', {
+        currentUser: req.session.currentUser,
+        template:'homepage/homepage.ejs',
+    });
 });
 
 app.listen(3000, () => {
     console.log('Express listening at', PORT);
 });
-
