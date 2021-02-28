@@ -15,10 +15,17 @@
           <div>
             <a class="navbar-brand" href="#">Frame Designer</a>
           </div>
+          <% if (currentUser) { %>
           <div>
-            <a class="btn btn-primary" href="#">Sign Up</a>
+            <a class="btn btn-primary" href="/sessions?_method=DELETE">Log Out
+            </a>
+          </div>
+          <% } else { %>
+          <div>
+            <a class="btn btn-primary" href="/users/new">Sign Up</a>
             <a class="btn btn-primary" href="/sessions/new">Sign In</a>
           </div>
+          <% } %> 
         </div>
       </nav>
     </header>

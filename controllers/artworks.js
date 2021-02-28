@@ -14,19 +14,12 @@ router.get('/seed', (req, res) => {
 });
 
 // index
-// router.get('/', (req, res) => {
-//     Artwork.find({}, (error, allArtworks) => {
-//         res.render('artworks/index.ejs', {
-//             artworks: allArtworks,
-//         });
-//     });
-// });
-
 router.get('/', (req, res) => {
     Artwork.find({}, (error, allArtworks) => {
         res.render('layout/index.ejs', {
-            template: 'artworks/index.ejs',
             artworks: allArtworks,
+            currentUser: req.session.currentUser,
+            template: 'artworks/index.ejs',
         });
     });
 });
@@ -50,8 +43,9 @@ router.post('/', (req, res) => {
 router.get('/:id', (req, res) => {
     Artwork.findById(req.params.id, (error, foundArtwork) => {
         res.render('layout/index.ejs', {
+            artwork: foundArtwork,
+            currentUser: req.session.currentUser,
             template: 'artworks/show.ejs',
-            artwork: foundArtwork
         });
     });
 });
@@ -60,8 +54,9 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     Artwork.findById(req.params.id, (error, foundArtwork) => {
         res.render('layout/index.ejs', {
+            artwork: foundArtwork,
+            currentUser: req.session.currentUser,
             template: 'artworks/edit.ejs',
-            artwork: foundArtwork
         })
     });
 });
@@ -70,8 +65,9 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
     Artwork.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedArtwork) => {
         res.render('layout/index.ejs', {
-            template: 'artworks/show.ejs',
             artwork: updatedArtwork,
+            currentUser: req.session.currentUser,
+            template: 'artworks/show.ejs',
         });
     });
 });

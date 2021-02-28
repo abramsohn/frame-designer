@@ -9,6 +9,7 @@ const User = require('../models/user');
 // ROUTES
 // new
 router.get('/new', (req, res) => {
+    console.log(req.session.currentUser)
     res.render('layout/index.ejs', {
         template: 'sessions/new.ejs',
         currentUser: req.session.currentUser

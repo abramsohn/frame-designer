@@ -18,6 +18,7 @@ router.get('/seed', (req, res) => {
 router.get('/new', (req, res) => {
     res.render('layout/index.ejs', {
         template: 'users/new.ejs',
+        currentUser: req.session.currentUser
     });
 });
 // create

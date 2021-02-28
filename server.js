@@ -66,6 +66,7 @@ app.use('/sessions', sessionsController);
 // ROUTES //
 // root
 app.get('/', (req, res) => {
+    console.log(req.currentUser)
     res.redirect('/artworks');
 });
 
