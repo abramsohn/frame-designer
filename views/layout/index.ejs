@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/styles.css" />
     <title>Document</title>
   </head>
   <body>
@@ -16,12 +17,12 @@
           </div>
           <div>
             <a class="btn btn-primary" href="#">Sign Up</a>
-            <a class="btn btn-primary" href="#">Sign In</a>
+            <a class="btn btn-primary" href="/sessions/new">Sign In</a>
           </div>
         </div>
       </nav>
     </header>
 
-    <main class="container"><%- include(`../${template}`) %></main>
+    <%- include(`../${template}`) %>
   </body>
 </html>

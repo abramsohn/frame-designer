@@ -1,9 +1,10 @@
-
-    <h1>Artwork index</h1>
-    <ul>
-        <% artworks.forEach(artwork => { %>
-         <li>
-            <a href="/artworks/<%= artwork.id %>"> <%= artwork.title %></a>
-         </li>
-        <% }) %>
-    </ul>
+<main class="container">
+  <h1>Artwork index</h1>
+  <ul>
+    <% artworks.forEach(artwork => { %>
+    <li>
+      <a href="/artworks/<%= artwork.id %>"> <%= artwork.title %></a>
+    </li>
+    <% }) %>
+  </ul>
+</main>
