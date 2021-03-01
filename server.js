@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const path = require('path');
-
-
-// const path = require('path');
-
 require('dotenv').config();
 
 // CONFIGURATION //
@@ -16,8 +12,6 @@ const app = express();
 // MIDDLEWARE
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-// app.use(express.static(path.join(__dirname, './public')));
-// app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, './public')))
 
 
@@ -67,6 +61,10 @@ app.use('/users', usersController);
 
 const sessionsController = require('./controllers/sessions');
 app.use('/sessions', sessionsController);
+
+//SEED
+const Seed = require('./seeds/seed');
+app.use('/seed', Seed);
 
 // ROUTES //
 // root

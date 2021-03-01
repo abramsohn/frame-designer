@@ -5,18 +5,6 @@ const router = express.Router();
 // MODEL //
 const Artwork = require('../models/artwork.js');
 
-// seed 
-// const artworkSeed = require('../seeds/artwork.js')
-// router.get('/seed', (req, res) => {
-    // const user1 = User.find({username: 'user1'});
-    // const user2 = User.find({username: 'user2'});
-
-    // Artwork.create(artworkSeed, (error, data) => {
-        // console.log(artworkSeed);
-        // res.redirect('/');
-    // });
-// });
-
 // index
 router.get('/', (req, res) => {
     Artwork.find({user: req.session.currentUser}, (error, allArtworks) => {

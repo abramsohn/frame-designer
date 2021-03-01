@@ -7,13 +7,6 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.js')
 
 // ROUTES //
-// seed
-const userSeed = require('../seeds/user.js')
-router.get('/seed', (req, res) => {
-    User.create(userSeed, (error, data) => {
-        res.redirect('/users');
-    });
-});
 
 //index TODO: DEV ROUTE - DELETE
 router.get('/', (req, res) => {
