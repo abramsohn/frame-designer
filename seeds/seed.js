@@ -30,7 +30,6 @@ const artworkSeed = [
 
 function linkUsersAndArtWork(users, artwork) {
     artwork.forEach(peice => {
-        console.log("-----",users[Math.floor(Math.random() * users.length)], "------");
         peice.user = users[Math.floor(Math.random() * users.length)]
     })
 };
@@ -41,12 +40,9 @@ router.get('/', (req, res) => {
     User.create(userSeed, (error, createdUsers) => {
         linkUsersAndArtWork(createdUsers, artworkSeed);
         Artwork.create(artworkSeed, (error, createdArtwork) => {
-            // console.log(error)
             res.redirect('/');
         });
     });
 });
-
-
 
 module.exports = router;
