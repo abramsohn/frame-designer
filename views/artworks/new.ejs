@@ -1,15 +1,50 @@
 <main class="container">
-  <h1>New</h1>
-  <form action="/artworks" method="POST">
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" />
+  <div class="row pt-md-5">
+    <div class="col">
+      <h2>The visual will be here</h2>
+    </div>
+    <div class="col">
+      <form action="/artworks" method="POST">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="form-control .form-control-lg"
+          />
+        </div>
 
-    <label for="height">Height</label>
-    <input type="text" id="height" name="height" />
+        <fieldset class="input-group mb-3">
+          <legend class="form-label">Dimensions</legend>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="width"
+            aria-label="width"
+            name="width"
+          />
+          <span class="input-group-text">X</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="height"
+            aria-label="height"
+            name="height"
+          />
+        </fieldset>
 
-    <label for="width">Width</label>
-    <input type="text" id="width" name="width" />
+        <div class="mb-3">
+          <label for="customRange1" class="form-label">Borders</label>
+          <input type="range" class="form-range" id="customRange1" />
+        </div>
 
-    <input type="Submit" />
-  </form>
+        <input
+          type="Submit"
+          value="Confirm Design"
+          class="form-control .form-control-lg"
+        />
+      </form>
+    </div>
+  </div>
 </main>

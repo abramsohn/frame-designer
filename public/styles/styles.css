@@ -3,6 +3,10 @@ body {
   height: 100%;
 }
 
+legend {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
 .signin {
   height: 100%;
   display: flex;
@@ -47,8 +51,3 @@ body {
   border-color: darkgrey;
   box-shadow: none;
 }
-
-/* .form-control:invalid { */
-/* border-color: red; */
-/* box-shadow: none; */
-/* } */
