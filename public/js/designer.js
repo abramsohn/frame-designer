@@ -13,8 +13,8 @@ class Artwork {
 const artwork = new Artwork('/images/Walker-Evans_New-Orleans-Street-Corner.jpg')
 
 // Image //
-const image = new Image();
-image.src = '/images/Walker-Evans_New-Orleans-Street-Corner.jpg';
+// const image = new Image();
+// image.src = '/images/Walker-Evans_New-Orleans-Street-Corner.jpg';
 
 
 // Canvas
@@ -70,7 +70,7 @@ function dropShadow() {
 function loadImage() {
     if (artwork.imageWidth >= artwork.imageHeight) {
         context.drawImage(
-            image,
+            artwork.image,
             Math.abs(canvas.width / 2 - artwork.longDimension/2),
             Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
             artwork.longDimension,
@@ -78,7 +78,7 @@ function loadImage() {
         );
     } else {  
         context.drawImage(
-            image,
+            artwork.image,
             Math.abs(canvas.width / 2 - artwork.longDimension/2),
             Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
             artwork.longDimension,
@@ -124,6 +124,7 @@ function handleSizeChange(e) {
         }
     }
 }
+
 
 const imageWidth = document.querySelector('#imageWidth');
 const imageHeight = document.querySelector('#imageHeight');

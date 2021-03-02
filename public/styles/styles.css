@@ -52,6 +52,37 @@ legend {
   box-shadow: none;
 }
 
+.borders-range {
+  display: inline-block;
+  width: 75%;
+}
+
+.bubble {
+  display: inline-block;
+  position: relative;
+  width: 40px;
+  height: 32px;
+  font-size: 1rem;
+  color: black;
+  text-align: center;
+  border-radius: 3px;
+  background: #e9ecef;
+  padding: 5px 10px;
+  margin-left: 8px;
+  content: "";
+}
+.bubble::after {
+  position: absolute;
+  top: px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-right: 7px solid #e9ecef;
+  border-bottom: 7px solid transparent;
+  content: "";
+}
+
 /* utilities */
 
 .vh-75 {

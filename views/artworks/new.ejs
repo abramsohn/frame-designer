@@ -40,17 +40,21 @@
 
         <div class="mb-3">
           <label for="borderRange" class="form-label">Borders</label>
-          <input
-            value="0"
-            min="0"
-            max="150"
-            type="range"
-            class="form-range"
-            id="borderRange"
-            name="borders"
-          />
-        </div>
+          <div>
+            <input
+              id="borderRange"
+              type="range"
+              name="borders"
+              class="form-control-range borders-range"
+              value="0"
+              min="0"
+              max="99"
+              oninput="this.nextElementSibling.value = this.value"
+            />
 
+            <output id="bubble" class="bubble" for="borders">0</output>
+          </div>
+        </div>
         <input
           type="Submit"
           value="Confirm Design"
@@ -60,4 +64,4 @@
     </div>
   </div>
 </main>
-<script src="/js/designer.js"></script>
+<script src="/js/designer.js" defer></script>
