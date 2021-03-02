@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <main class="container">
   <h1><%= artwork.title %></h1>
-  <p>this artwork is <%=artwork.height%> X <%=artwork.width%></p>
+  <p>
+    this artwork is <%=artwork.height%> X <%=artwork.width%> <br />
+    the border size is <%=artwork.borders%>
+  </p>
 
   <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a>
   <a href="/artworks/<%= artwork.id %>?_method=DELETE">Delete This Artwork</a>

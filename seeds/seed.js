@@ -16,16 +16,16 @@ const userSeed = [
 ];
 
 const artworkSeed = [
-    { user: null, title: 'Fragment of Kinetic Dimension', height: 8, width: 10 },
-    { user: null, title: 'Feeling with Shape', height: 24, width: 30 },
-    { user: null, title: 'Vision of Falling Larque', height: 40, width: 50 },
-    { user: null, title: 'Scene with Shimmering Sentiment', height: 28, width: 100 },
-    { user: null, title: 'Contrast of Fear 11-18th April', height: 48, width: 96 },
-    { user: null, title: 'Mediterranean Appendix', height: 60, width: 75 },
-    { user: null, title: 'Faust & Purpose', height: 100, width: 150 },
-    { user: null, title: 'Reality or Image', height: 11, width: 14 },
-    { user: null, title: 'Sphere and Joy', height: 30, width: 40 },
-    { user: null, title: 'Limestone Post Detaching the Composition', height: 28, width: 34 }
+    { user: null, title: 'Fragment of Kinetic Dimension', height: 8, width: 10, borders: 20 },
+    { user: null, title: 'Feeling with Shape', height: 24, width: 30, borders: 50 },
+    { user: null, title: 'Vision of Falling Larque', height: 40, width: 50, borders: 10 },
+    { user: null, title: 'Scene with Shimmering Sentiment', height: 28, width: 100, borders: 67 },
+    { user: null, title: 'Contrast of Fear 11-18th April', height: 48, width: 96, borders: 0 },
+    { user: null, title: 'Mediterranean Appendix', height: 60, width: 75, borders: 84 },
+    { user: null, title: 'Faust & Purpose', height: 100, width: 150, borders: 45 },
+    { user: null, title: 'Reality or Image', height: 11, width: 14, borders: 54 },
+    { user: null, title: 'Sphere and Joy', height: 30, width: 40, borders: 14 },
+    { user: null, title: 'Limestone Post Detaching the Composition', height: 28, width: 34, borders: 80 }
 ];
 
 function linkUsersAndArtWork(users, artwork) {

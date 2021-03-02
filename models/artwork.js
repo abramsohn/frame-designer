@@ -5,6 +5,7 @@ const artworkSchema = mongoose.Schema({
     title: String,
     height: Number,
     width: Number,
+    borders: Number,
 })
 
 const Artwork = mongoose.model('Artwork', artworkSchema);
