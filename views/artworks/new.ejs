@@ -1,9 +1,11 @@
-<main class="container">
-  <div class="row pt-md-5">
-    <div class="col">
-      <h2>The visual will be here</h2>
+<main class="container h-100">
+  <div class="row gx-5">
+    <div class="col col-7 vh-75">
+      <canvas id="designer" width="300" height="150"
+        >Unfortunately your browser does not support canvas.</canvas
+      >
     </div>
-    <div class="col">
+    <div class="col col-3 pt-md-5">
       <form action="/artworks" method="POST">
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -16,8 +18,9 @@
         </div>
 
         <fieldset class="input-group mb-3">
-          <legend class="form-label">Dimensions</legend>
+          <legend class="form-label">Image Size</legend>
           <input
+            id="imageWidth"
             type="text"
             class="form-control"
             placeholder="width"
@@ -26,6 +29,7 @@
           />
           <span class="input-group-text">X</span>
           <input
+            id="imageHeight"
             type="text"
             class="form-control"
             placeholder="height"
@@ -35,8 +39,16 @@
         </fieldset>
 
         <div class="mb-3">
-          <label for="customRange1" class="form-label">Borders</label>
-          <input type="range" class="form-range" id="customRange1" />
+          <label for="borderRange" class="form-label">Borders</label>
+          <input
+            value="0"
+            min="0"
+            max="150"
+            type="range"
+            class="form-range"
+            id="borderRange"
+            name="borders"
+          />
         </div>
 
         <input
@@ -48,3 +60,4 @@
     </div>
   </div>
 </main>
+<script src="/js/designer.js"></script>

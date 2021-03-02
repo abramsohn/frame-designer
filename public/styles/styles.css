@@ -51,3 +51,9 @@ legend {
   border-color: darkgrey;
   box-shadow: none;
 }
+
+/* utilities */
+
+.vh-75 {
+  height: 75vh;
+}
