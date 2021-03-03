@@ -23,22 +23,17 @@ canvas.width = container.offsetWidth - containerPadding
 canvas.height = container.offsetHeight - containerPadding
 
 // SELECTORS //
-const imageWidth = document.querySelector('#imageWidth');
-const imageHeight = document.querySelector('#imageHeight');
-const borderRange = document.querySelector('#borderRange');
+// const imageWidth = document.querySelector('#imageWidth');
+// const imageHeight = document.querySelector('#imageHeight');
+// const borderRange = document.querySelector('#borderRange');
+const borders = document.querySelector('#borders').innerHTML;
+console.log(borders)
+
 
 // EVENT HANDELERS //
-let mouseDown = false;
-borderRange.addEventListener('mousedown', () => (mouseDown = true))
-borderRange.addEventListener('mouseup', () => (mouseDown = false))
-borderRange.addEventListener('mousemove', e => mouseDown && handleRangeUpdate(e))
-
-imageHeight.addEventListener('change', handleSizeInputChange);
-imageWidth.addEventListener('change', handleSizeInputChange);
-window.addEventListener('load', setImageSizeInputs);
 // window.addEventListener('load', draw(borderRange.value));
 artwork.image.onload = () => {
-    draw(borderRange.value);
+    draw(Number(borders));
 }
 
 // DRAWING METHODS //
@@ -110,34 +105,3 @@ function draw(borderSize) {
     context.shadowColor = 'transparent';
     loadImage();
   }
-
-
-// Update the canvas when user changes the border size
-function handleRangeUpdate(e) {
-  draw(e.target.value);
-}
-
-// initialize the image size based on the image aspect ratio at 72dpi
-function setImageSizeInputs(){
-    if (!imageHeight.value && !imageHeight.value) {
-        imageHeight.value = (artwork.imageHeight / 72).toFixed(2)
-        imageWidth.value = (artwork.imageWidth / 72).toFixed(2)
-    } 
-}
-
-// When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
-function handleSizeInputChange(e) {
-    if (e.target == imageWidth) {
-        if (e.target.value >= imageHeight.value) {
-            imageHeight.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
-        } else {
-            imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
-        }
-    } else {
-        if (e.target.value >= imageWidth.value) {
-            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
-        } else {
-            imageWidth.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
-        }
-    }
-}
