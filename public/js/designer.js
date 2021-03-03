@@ -6,8 +6,10 @@ class Artwork {
         this.imageWidth = this.image.width;
         this.imageLongDimension = this.image.width >= this.image.height ? this.image.width : this.image.height;
         this.imageShortDimension = this.image.width < this.image.height ? this.image.width : this.image.height;
-        this.imageAspectRatio = this.image.width > this.image.height ? this.image.width / this.image.height : this.image.height / this.image.width;
-
+        this.imageAspectRatio = this.image.width > this.image.height ? this.image.height / this.image.width : this.image.width / this.image.height;
+        // this.imageAspectRatio = this.image.width > this.image.height ? this.image.width / this.image.height : this.image.height / this.image.width;
+        this.orientation = this.image.width >= this.image.height ? 'landscape' : 'portrait'
+        this.previousValue = null;
         this.resolution = 72;
 
     }
@@ -29,6 +31,7 @@ canvas.height = container.offsetHeight - containerPadding
 const imageWidth = document.querySelector('#imageWidth');
 const imageHeight = document.querySelector('#imageHeight');
 const borderRange = document.querySelector('#borderRange');
+const inputs = document.querySelectorAll('input[type=text]');
 
 // EVENT HANDELERS //
 let mouseDown = false;
@@ -36,9 +39,14 @@ borderRange.addEventListener('mousedown', () => (mouseDown = true))
 borderRange.addEventListener('mouseup', () => (mouseDown = false))
 borderRange.addEventListener('mousemove', e => mouseDown && handleRangeUpdate(e))
 
+
 imageHeight.addEventListener('change', handleSizeInputChange);
 imageWidth.addEventListener('change', handleSizeInputChange);
 window.addEventListener('load', setImageSizeInputs);
+inputs.forEach(input => {
+    input.addEventListener('focus', (e) => artwork.previousValue = e.target.value);
+});
+
 // window.addEventListener('load', draw(borderRange.value));
 artwork.image.onload = () => {
     draw(borderRange.value);
@@ -47,12 +55,14 @@ artwork.image.onload = () => {
 // DRAWING METHODS //
 
 function calculateImageDesplaySize() {
-    if (canvas.width >= canvas.height) {
+    if (artwork.orientation == 'landscape') {
+        console.log('P')
         artwork.longDimension = (canvas.width - 300)
-        artwork.shortDimension = (canvas.width - 300) / artwork.imageAspectRatio
+        artwork.shortDimension = (canvas.width - 300) * artwork.imageAspectRatio
     } else {
-        artwork.longDimension = (canvas.height - 300)
-        artwork.shortDimension = (canvas.height - 300) / artwork.imageAspectRatio
+        console.log('L')
+        artwork.longDimension = (canvas.height - 150)
+        artwork.shortDimension = (canvas.height - 150) * artwork.imageAspectRatio
     }
 }
 
@@ -66,7 +76,7 @@ function dropShadow() {
 
 // draws the image in the center of the canvas
 function loadImage() {
-    if (artwork.imageWidth >= artwork.imageHeight) {
+    if (artwork.orientation == 'landscape') {
         context.drawImage(
             artwork.image,
             Math.abs(canvas.width / 2 - artwork.longDimension/2),
@@ -77,10 +87,10 @@ function loadImage() {
     } else {  
         context.drawImage(
             artwork.image,
-            Math.abs(canvas.width / 2 - artwork.longDimension/2),
-            Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
-            artwork.longDimension,
+            Math.abs(canvas.width / 2 - artwork.shortDimension / 2),
+            Math.abs(canvas.height / 2 - artwork.longDimension/2),
             artwork.shortDimension,
+            artwork.longDimension,
         );
     }
 }
@@ -93,7 +103,7 @@ function draw(borderSize) {
     dropShadow();
     
     context.beginPath();
-    if (artwork.imageWidth >= artwork.imageHeight) {
+    if (artwork.orientation == 'landscape') {
         context.rect(
             (canvas.width / 2 - artwork.longDimension / 2) - (Number(borderSize) / 2),
             (canvas.height / 2 - artwork.shortDimension / 2) - (Number(borderSize) / 2),
@@ -101,12 +111,13 @@ function draw(borderSize) {
             artwork.shortDimension + Number(borderSize),
             );
     } else {
-         context.rect(
-            canvas.width / 2 - artwork.shortDimension / 2,
-            canvas.height / 2 - artwork.longDimension / 2,
-            artwork.longDimension,
-            artwork.shortDimension
+        context.rect(
+            (canvas.width / 2 - artwork.shortDimension / 2) - (Number(borderSize) / 2),
+            (canvas.height / 2 - artwork.longDimension / 2) - (Number(borderSize) / 2),
+            artwork.shortDimension + Number(borderSize),
+            artwork.longDimension + Number(borderSize),
         );
+        
     }
     context.fillStyle = '#fff';
     context.fill();
@@ -122,30 +133,29 @@ function handleRangeUpdate(e) {
 
 // initialize the image size based on the image aspect ratio at 72dpi
 function setImageSizeInputs(){
-    if (!imageHeight.value && !imageHeight.value) {
+    if (!imageHeight.value || !imageHeight.value) {
         imageHeight.value = (artwork.imageHeight / 72).toFixed(2)
         imageWidth.value = (artwork.imageWidth / 72).toFixed(2)
     } 
 }
 
 // When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
-function handleSizeInputChange(e) {
-    if (e.target == imageWidth) {
-        console.log(e.target)
-        console.log('target', e.target.value)
-        console.log('else', imageHeight.value)
-        if (e.target.value >= imageHeight.value) {
-            imageHeight.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
-        } else {
+function handleSizeInputChange(e) { // TODO: change structure and handle Nan
+    if (artwork.orientation = 'landscape') {
+        if (e.target == imageWidth) { // changing the width
             imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
+            changeResolution(e.target.value, artwork.previousValue);
+        } else { // changing the height
+            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2);
+            changeResolution(e.target.value, artwork.previousValue);
         }
-    } else {
-                console.log(e.target)
-
-        if (e.target.value >= imageWidth.value) {
-            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
-        } else {
-            imageWidth.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
+    } else { // the artwork orientation is portrait 
+        if (e.target == imageWidth) { // changing the width
+            imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2);
+            changeResolution(e.target.value, artwork.previousValue);
+        } else { // changing the height
+            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2);
+            changeResolution(e.target.value, artwork.previousValue);
         }
     }
 }
