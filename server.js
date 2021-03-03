@@ -33,9 +33,8 @@ app.use( ( req, res, next ) => {
 
 // DATABASE SETTINGS //
 const db = mongoose.connection;
-const PORT = process.env.PORT;
-// const mongodbURI = process.env.MONGODBURI + process.env.DBNAME;
-const mongodbURI = 'mongodb://localhost:27017/frameDesigner'
+const PORT = process.env.PORT || 3000;
+const mongodbURI = process.env.MONGODBURI || 'mongodb://localhost:27017/frameDesigner'
 
 // conect to db
 mongoose.connect(mongodbURI, {
@@ -45,8 +44,11 @@ mongoose.connect(mongodbURI, {
 }, () => ('connected to mongodb at', mongodbURI));
 
 // db error handeling 
-db.on('error', err => console.log(err.message + ' is mongod not running?'));
+db.on('error', err => console.log(err.message + ' check database connection'));
 db.on('disconnected', () => console.log('mongo disconnected'));
+
+// start connection to mongo
+db.on('open' , ()=>{});
 
 // MODELS //
 const User = require('./models/user');
@@ -74,6 +76,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('Express listening at', PORT);
 });

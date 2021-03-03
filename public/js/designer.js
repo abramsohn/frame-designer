@@ -7,6 +7,9 @@ class Artwork {
         this.imageLongDimension = this.image.width >= this.image.height ? this.image.width : this.image.height;
         this.imageShortDimension = this.image.width < this.image.height ? this.image.width : this.image.height;
         this.imageAspectRatio = this.image.width > this.image.height ? this.image.width / this.image.height : this.image.height / this.image.width;
+
+        this.resolution = 72;
+
     }
 }
 
@@ -128,12 +131,17 @@ function setImageSizeInputs(){
 // When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
 function handleSizeInputChange(e) {
     if (e.target == imageWidth) {
+        console.log(e.target)
+        console.log('target', e.target.value)
+        console.log('else', imageHeight.value)
         if (e.target.value >= imageHeight.value) {
             imageHeight.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
         } else {
             imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
         }
     } else {
+                console.log(e.target)
+
         if (e.target.value >= imageWidth.value) {
             imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2)
         } else {
