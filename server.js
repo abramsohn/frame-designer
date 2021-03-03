@@ -34,7 +34,11 @@ app.use( ( req, res, next ) => {
 // DATABASE SETTINGS //
 const db = mongoose.connection;
 const PORT = process.env.PORT || 3000;
+<<<<<<< HEAD
 const mongodbURI = process.env.MONGODBURI || 'mongodb://localhost:27017/frameDesigner'
+=======
+const mongodbURI = process.env.MONGODBURI + process.env.DBNAME || 'mongodb://localhost:27017/frameDesigner'
+>>>>>>> 639db518bb186d56fcef4bc226d322e370fa7b14
 
 // conect to db
 mongoose.connect(mongodbURI, {
