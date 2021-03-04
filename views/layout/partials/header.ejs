@@ -3,7 +3,11 @@
     class="navbar navbar-expand-lg navbar-light p-3 px-md-4 mb-3 bg-body border-bottom"
   >
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Frame Designer</a>
+      <a
+        class="navbar-brand"
+        href="<% if (currentUser){ %> /artworks <% } else { %> / <% } %> "</a> 
+        Frame Designer</a
+      >
       <button
         class="navbar-toggler"
         type="button"
