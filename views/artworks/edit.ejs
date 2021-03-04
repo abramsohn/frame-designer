@@ -58,6 +58,12 @@
               ><%= (artwork.borders / artwork.resolution).toFixed(2) %>"</output
             >
           </div>
+          <input
+            id="resolution"
+            name="resolution"
+            type="hidden"
+            value="<%= artwork.resolution %>"
+          />
         </div>
         <input
           type="Submit"

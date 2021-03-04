@@ -49,7 +49,11 @@ inputs.forEach(input => {
     input.addEventListener('focus', (e) => artwork.previousValue = e.target.value);
 });
 
-// window.addEventListener('load', draw(borderRange.value));
+document.addEventListener('load', () => {
+    if (resolution.value) {
+        artwork.resolution = resolution.value
+    }
+});
 artwork.image.onload = () => {
     draw(borderRange.value);
 }
@@ -142,6 +146,7 @@ function setImageSizeInputs() {
 
 // When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
 function handleSizeInputChange(e) { // TODO: change structure and handle Nan
+    console.log('fire')
     const aspectRatio = artwork.imageAspectRatio
     const target = e.target.value
     if (artwork.orientation = 'landscape') {
@@ -162,6 +167,7 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
     resolution.value = artwork.resolution;
     bubble.innerHTML = `${(borderRange.value / artwork.resolution).toFixed(2)}"`;
 }
+
 
 function changeResolution(currentValue, previousValue) {
     let factor = previousValue / currentValue; 
