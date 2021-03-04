@@ -1,7 +1,7 @@
 class Artwork {
-    constructor() {
+    constructor(src) {
         this.image = new Image();
-        this.image.src = '/images/Walker-Evans_New-Orleans-Street-Corner.jpg';
+        this.image.src = src;
         this.imageHeight = this.image.height;
         this.imageWidth = this.image.width;
         this.imageLongDimension = this.image.width >= this.image.height ? this.image.width : this.image.height;
@@ -14,7 +14,7 @@ class Artwork {
     }
 }
 
-const artwork = new Artwork()
+const artwork = new Artwork('/images/Walker-Evans_New-Orleans-Street-Corner.jpg')
 
 // CANVAS SETUP //
 const canvas = document.querySelector('#designer');
@@ -32,7 +32,7 @@ const imageHeight = document.querySelector('#imageHeight');
 const borderRange = document.querySelector('#borderRange');
 const inputs = document.querySelectorAll('input[type=text]');
 const bubble = document.querySelector('#bubble');
-
+const resolution = document.querySelector('#resolution');
 // EVENT HANDELERS //
 let mouseDown = false;
 borderRange.addEventListener('mousedown', () => (mouseDown = true));
@@ -51,10 +51,7 @@ inputs.forEach(input => {
 
 // window.addEventListener('load', draw(borderRange.value));
 artwork.image.onload = () => {
-    setTimeout(() => { // TODO: find a better way to make this work
-        draw(borderRange.value);    
-    }, 1000)
-    
+    draw(borderRange.value);
 }
 
 // DRAWING METHODS //
@@ -162,6 +159,7 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
         
     }
     changeResolution(target, artwork.previousValue);
+    resolution.value = artwork.resolution;
     bubble.innerHTML = `${(borderRange.value / artwork.resolution).toFixed(2)}"`;
 }
 

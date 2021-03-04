@@ -7,7 +7,10 @@
         <dt class="col-sm-6">Image Size:</dt>
         <dd class="col-sm-6"><%=artwork.height%> X <%=artwork.width%></dd>
         <dt class="col-sm-6">border size</dt>
-        <dd id="borders" class="col-sm-6"><%=artwork.borders%></dd>
+        <dd id="borders" class="col-sm-6">
+          <%=(artwork.borders / artwork.resolution).toFixed(2)%>"
+        </dd>
+        <!-- <dd id="borders" class="col-sm-6"><%#=artwork.borders%></dd> -->
         <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a>
         <a href="/artworks/<%= artwork.id %>?_method=DELETE"
           >Delete This Artwork</a
