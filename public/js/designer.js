@@ -51,7 +51,10 @@ inputs.forEach(input => {
 
 // window.addEventListener('load', draw(borderRange.value));
 artwork.image.onload = () => {
-    draw(borderRange.value);
+    setTimeout(() => { // TODO: find a better way to make this work
+        draw(borderRange.value);    
+    }, 1000)
+    
 }
 
 // DRAWING METHODS //
