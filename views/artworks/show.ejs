@@ -30,10 +30,11 @@
     </div>
 
     <div class="col col-7 vh-75">
-      <canvas id="designer" width="300" height="150">
-        Unfortunately your browser does not support canvas.
-      </canvas>
+      <img src="<%= artwork.preview %>" alt="" />
     </div>
   </div>
 </main>
-<script src="/js/designer-preview.js" defer></script>
+<script src="/js/designer-preview.js"></script>
+<script>
+  draw("/images/Walker-Evans_New-Orleans-Street-Corner.jpg", 0, 0);
+</script>

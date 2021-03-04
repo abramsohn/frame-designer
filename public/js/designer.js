@@ -12,7 +12,6 @@ class Artwork {
         this.resolution = null;
         this.border = null;
         this.frameMolding = null;
-
     }
 }
 
@@ -36,6 +35,7 @@ const inputs = document.querySelectorAll('input[type=text]');
 const bubble = document.querySelector('#bubble');
 const resolution = document.querySelector('#resolution');
 const frameMolding = document.querySelector('#frameMolding');
+const preview = document.querySelector('#preview');
 
 // EVENT HANDELERS //
 let mouseDown = false;
@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
     if (frameMolding.value) { artwork.frameMolding = Number(frameMolding.value) };
     if (borderRange.value) { artwork.border = Number(borderRange.value) };
     setImageSizeInputs();
-    draw(borderRange.value ,artwork.frameMolding * artwork.resolution);
+    draw(artwork.image, borderRange.value ,artwork.frameMolding * artwork.resolution);
 });
 
 // DRAWING METHODS //
@@ -84,10 +84,10 @@ function dropShadow() {
 }
 
 // draws the image in the center of the canvas
-function loadImage() {
+function loadImage(image) {
     if (artwork.orientation == 'landscape') {
         context.drawImage(
-            artwork.image,
+            image,
             Math.abs(canvas.width / 2 - artwork.longDimension/2),
             Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
             artwork.longDimension,
@@ -95,7 +95,7 @@ function loadImage() {
         );
     } else {  
         context.drawImage(
-            artwork.image,
+            image,
             Math.abs(canvas.width / 2 - artwork.shortDimension / 2),
             Math.abs(canvas.height / 2 - artwork.longDimension/2),
             artwork.shortDimension,
@@ -105,7 +105,7 @@ function loadImage() {
 }
 
 
-function draw(borderSize, frameMolding) {
+function draw(image, borderSize, frameMolding) {
     borderSize = Number(borderSize)
     frameMolding = Number(frameMolding)
     calculateImageDesplaySize()
@@ -149,11 +149,9 @@ function draw(borderSize, frameMolding) {
             );
         }
     }
-
-    // context.fillStyle = '#fff';
-    // context.fill();
     context.shadowColor = 'transparent';
-    loadImage();
+    loadImage(image);
+    preview.value = canvas.toDataURL("image/jpg");
   }
 
 function calculateFramePixelsSize(inchesSize) {
@@ -163,24 +161,21 @@ function calculateFramePixelsSize(inchesSize) {
 // Update the canvas when user changes the border size
 function handleRangeUpdate(e) {
     artwork.border = e.target.value;
-    // const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
-    // draw(e.target.value, frameMoldingInPixels);
-    draw(e.target.value, calculateFramePixelsSize(artwork.frameMolding));
+    draw(artwork.image, e.target.value, calculateFramePixelsSize(artwork.frameMolding));
 }
 
 function handleFrameMoldingChange(e) {
     artwork.frameMolding = e.target.value
-    // const frameMoldingInPixels = e.target.value * artwork.resolution
-    // draw(artwork.border, frameMoldingInPixels);
-    draw(artwork.border, calculateFramePixelsSize(e.target.value));
+    draw(artwork.image, artwork.border, calculateFramePixelsSize(e.target.value));
 }
 
 // initialize the image size based on the image aspect ratio at 72dpi
 function setImageSizeInputs() {
-    if (artwork.resolution == 0) {
+    if (!imageHeight.value || !imageWidth.value || artwork.resolution == 0 || artwork.resolution == NaN) {
         artwork.resolution = 72;
         imageHeight.value = (artwork.image.naturalHeight / 72).toFixed(2)
         imageWidth.value = (artwork.image.naturalWidth / 72).toFixed(2)
+        
     }
 }
 
@@ -204,13 +199,10 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
     }
     changeResolution(target, artwork.previousValue);
     resolution.value = artwork.resolution;
-    // const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
     const borderSizeInInches = (borderRange.value / artwork.resolution).toFixed(2)
     bubble.innerHTML = `${borderSizeInInches}"`;
     
-    // draw(artwork.border, frameMoldingInPixels)
-    draw(artwork.border, calculateFramePixelsSize(artwork.frameMolding))
-
+    draw(artwork.image, artwork.border, calculateFramePixelsSize(artwork.frameMolding))
 }
 
 

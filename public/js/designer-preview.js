@@ -6,12 +6,13 @@ class Artwork {
         this.imageWidth = this.image.width;
         this.imageLongDimension = this.image.width >= this.image.height ? this.image.width : this.image.height;
         this.imageShortDimension = this.image.width < this.image.height ? this.image.width : this.image.height;
-        this.imageAspectRatio = this.image.width > this.image.height ? this.image.width / this.image.height : this.image.height / this.image.width;
+        this.imageAspectRatio = this.image.width > this.image.height ? this.image.height / this.image.width : this.image.width / this.image.height;
         this.orientation = this.image.width >= this.image.height ? 'landscape' : 'portrait'
         this.previousValue = null;
         this.resolution = null;
         this.border = null;
         this.frameMolding = null;
+
     }
 }
 
@@ -28,27 +29,26 @@ canvas.width = container.offsetWidth - containerPadding
 canvas.height = container.offsetHeight - containerPadding
 
 // SELECTORS //
-const frameMolding = Number(document.querySelector('#frameMolding').innerHTML);
-const borders = Number(document.querySelector('#borders').innerHTML) || 0;
 
 
 // EVENT HANDELERS //
-// window.addEventListener('load', draw(borderRange.value));
-artwork.image.onload = () => {
-    const frameMoldingInPixels = frameMolding * artwork.resolution
-    console.log(borders, frameMoldingInPixels, artwork.resolution)
-    draw(Number(borders, frameMoldingInPixels));
-}
+window.addEventListener('load', () => {
+    // if (resolution.value) { artwork.resolution = Number(resolution.value) };
+    // if (frameMolding.value) { artwork.frameMolding = Number(frameMolding.value) };
+    // if (borderRange.value) { artwork.border = Number(borderRange.value) };
+    // setImageSizeInputs();
+    draw(artwork.image, borderRange.value ,artwork.frameMolding * artwork.resolution);
+});
 
 // DRAWING METHODS //
 
 function calculateImageDesplaySize() {
-    if (canvas.width >= canvas.height) {
+    if (artwork.orientation == 'landscape') {
         artwork.longDimension = (canvas.width - 300)
-        artwork.shortDimension = (canvas.width - 300) / artwork.imageAspectRatio
+        artwork.shortDimension = (canvas.width - 300) * artwork.imageAspectRatio
     } else {
-        artwork.longDimension = (canvas.height - 300)
-        artwork.shortDimension = (canvas.height - 300) / artwork.imageAspectRatio
+        artwork.longDimension = (canvas.height - 150)
+        artwork.shortDimension = (canvas.height - 150) * artwork.imageAspectRatio
     }
 }
 
@@ -61,10 +61,10 @@ function dropShadow() {
 }
 
 // draws the image in the center of the canvas
-function loadImage() {
-    if (artwork.imageWidth >= artwork.imageHeight) {
+function loadImage(image) {
+    if (artwork.orientation == 'landscape') {
         context.drawImage(
-            artwork.image,
+            image,
             Math.abs(canvas.width / 2 - artwork.longDimension/2),
             Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
             artwork.longDimension,
@@ -72,18 +72,17 @@ function loadImage() {
         );
     } else {  
         context.drawImage(
-            artwork.image,
-            Math.abs(canvas.width / 2 - artwork.longDimension/2),
-            Math.abs(canvas.height / 2 - artwork.shortDimension / 2),
-            artwork.longDimension,
+            image,
+            Math.abs(canvas.width / 2 - artwork.shortDimension / 2),
+            Math.abs(canvas.height / 2 - artwork.longDimension/2),
             artwork.shortDimension,
+            artwork.longDimension,
         );
     }
 }
 
-// let border = 0;
-function draw(borderSize, frameMolding) {
-    console.log(borderSize, frameMolding)
+
+function draw(image, borderSize, frameMolding) {
     borderSize = Number(borderSize)
     frameMolding = Number(frameMolding)
     calculateImageDesplaySize()
@@ -127,9 +126,10 @@ function draw(borderSize, frameMolding) {
             );
         }
     }
-
-    // context.fillStyle = '#fff';
-    // context.fill();
     context.shadowColor = 'transparent';
-    loadImage();
+    loadImage(image);
   }
+
+function calculateFramePixelsSize(inchesSize) {
+    return inchesSize * artwork.resolution
+}

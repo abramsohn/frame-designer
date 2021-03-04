@@ -10,7 +10,8 @@ require('dotenv').config();
 const app = express();
 
 // MIDDLEWARE
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: "10mb", extended: true, parameterLimit: 50000 }))
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, './public')))
 

@@ -8,6 +8,7 @@ const artworkSchema = mongoose.Schema({
     borders: Number,
     frameMolding: Number,
     resolution: Number,
+    preview: String,
 })
 
 const Artwork = mongoose.model('Artwork', artworkSchema);
