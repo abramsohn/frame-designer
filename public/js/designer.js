@@ -50,19 +50,18 @@ frameMolding.addEventListener('change', handleFrameMoldingChange);
 
 imageHeight.addEventListener('change', handleSizeInputChange);
 imageWidth.addEventListener('change', handleSizeInputChange);
-window.addEventListener('load', setImageSizeInputs);
+// window.addEventListener('load', setImageSizeInputs);
 inputs.forEach(input => {
     input.addEventListener('focus', (e) => artwork.previousValue = e.target.value);
 });
 
-document.addEventListener('load', () => {
-    if (resolution.value) {
-        artwork.resolution = resolution.value
-    }
+window.addEventListener('load', () => {
+    if (resolution.value) { artwork.resolution = Number(resolution.value) };
+    if (frameMolding.value) { artwork.frameMolding = Number(frameMolding.value) };
+    if (borderRange.value) { artwork.border = Number(borderRange.value) };
+    setImageSizeInputs();
+    draw(borderRange.value ,artwork.frameMolding * artwork.resolution);
 });
-artwork.image.onload = () => {
-    draw(borderRange.value);
-}
 
 // DRAWING METHODS //
 
@@ -161,19 +160,19 @@ function draw(borderSize, frameMolding) {
 // Update the canvas when user changes the border size
 function handleRangeUpdate(e) {
     artwork.border = e.target.value;
-    const frameMoldingInInch = artwork.frameMolding * artwork.resolution
-    draw(e.target.value, frameMoldingInInch);
+    const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
+    draw(e.target.value, frameMoldingInPixels);
 }
 
 function handleFrameMoldingChange(e) {
     artwork.frameMolding = e.target.value
-    const frameMoldingInInch = e.target.value * artwork.resolution
-    draw(artwork.border, frameMoldingInInch);
+    const frameMoldingInPixels = e.target.value * artwork.resolution
+    draw(artwork.border, frameMoldingInPixels);
 }
 
 // initialize the image size based on the image aspect ratio at 72dpi
 function setImageSizeInputs() {
-    if (!artwork.resolution) {
+    if (artwork.resolution == 0) {
         artwork.resolution = 72;
         imageHeight.value = (artwork.image.naturalHeight / 72).toFixed(2)
         imageWidth.value = (artwork.image.naturalWidth / 72).toFixed(2)
@@ -200,11 +199,11 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
     }
     changeResolution(target, artwork.previousValue);
     resolution.value = artwork.resolution;
-    const frameMoldingInInch = artwork.frameMolding * artwork.resolution
+    const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
     const borderSizeInInches = (borderRange.value / artwork.resolution).toFixed(2)
     bubble.innerHTML = `${borderSizeInInches}"`;
     
-    draw(artwork.border, frameMoldingInInch)
+    draw(artwork.border, frameMoldingInPixels)
 
 }
 

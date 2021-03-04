@@ -6,11 +6,22 @@
       <dl class="row">
         <dt class="col-sm-6">Image Size:</dt>
         <dd class="col-sm-6"><%=artwork.height%> X <%=artwork.width%></dd>
-        <dt class="col-sm-6">border size</dt>
-        <dd id="borders" class="col-sm-6">
-          <%=(artwork.borders / artwork.resolution).toFixed(2)%>"
+
+        <dt class="col-sm-6">border size:</dt>
+        <dd class="col-sm-6">
+          <% if (artwork.borders) { %>
+          <span id="borders"
+            ><%= (artwork.borders / artwork.resolution).toFixed(2) %></span
+          >" <% } else { %> None <% } %>
         </dd>
-        <!-- <dd id="borders" class="col-sm-6"><%#=artwork.borders%></dd> -->
+
+        <% if (artwork.frameMolding) { %>
+        <dt class="col-sm-6">Frame Molding:</dt>
+        <dd class="col-sm-6">
+          <span id="frameMolding"><%= artwork.frameMolding %></span>" face
+        </dd>
+        <% } %>
+
         <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a>
         <a href="/artworks/<%= artwork.id %>?_method=DELETE"
           >Delete This Artwork</a

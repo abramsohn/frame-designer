@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
 // destroy
 router.delete('/:id', (req, res) => {
     Artwork.findByIdAndDelete(req.params.id, (error, deletedArtwork) => {
-        res.redirect('/')
+        res.redirect('/artworks')
     });
 });
 

@@ -17,6 +17,7 @@
             value="<%= artwork.title %>"
           />
         </div>
+
         <fieldset class="input-group mb-3">
           <legend class="form-label">Image Size</legend>
           <input
@@ -57,14 +58,24 @@
             <output id="bubble" class="bubble" for="borders"
               ><%= (artwork.borders / artwork.resolution).toFixed(2) %>"</output
             >
-          </div>
-          <input
+            </div>
+        </div>
+
+        <div class="mb-3">
+          <select id="frameMolding" name="frameMolding" class="form-select">
+            <option value="0" <% if (artwork.frameMolding == 0) { %>selected<% } %> >Choose A Frame</option>
+            <option value="0.25" <% if (artwork.frameMolding == 0.25) { %>selected<% } %> >1/4" Face</option>
+            <option value="0.5" <% if (artwork.frameMolding == 0.5) { %> selected<% } %>>1/2" Face</option>
+            <option value="1" <% if (artwork.frameMolding == 1) { %> selected<% } %> >1" Face</option>
+          </select>
+        </div>
+         
+        <input
             id="resolution"
             name="resolution"
             type="hidden"
             value="<%= artwork.resolution %>"
           />
-        </div>
         <input
           type="Submit"
           value="Update Design"
