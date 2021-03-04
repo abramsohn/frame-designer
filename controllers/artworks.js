@@ -5,6 +5,15 @@ const router = express.Router();
 // MODEL //
 const Artwork = require('../models/artwork.js');
 
+// MIDDLEWARE//
+router.use((req, res, next) => {
+    if (req.session.currentUser) {
+        return next()
+    } else {
+        res.redirect('/')
+    }
+});
+
 // index
 router.get('/', (req, res) => {
     Artwork.find({user: req.session.currentUser}, (error, allArtworks) => {
