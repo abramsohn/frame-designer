@@ -60,14 +60,14 @@ legend {
 .bubble {
   display: inline-block;
   position: relative;
-  width: 40px;
+  width: 55px;
   height: 32px;
   font-size: 1rem;
   color: black;
   text-align: center;
   border-radius: 3px;
   background: #e9ecef;
-  padding: 5px 10px;
+  padding: 5px 6px;
   margin-left: 8px;
   content: "";
 }

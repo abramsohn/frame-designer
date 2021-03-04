@@ -1,21 +1,20 @@
 class Artwork {
-    constructor(src) {
+    constructor() {
         this.image = new Image();
-        this.image.src = src;
+        this.image.src = '/images/Walker-Evans_New-Orleans-Street-Corner.jpg';
         this.imageHeight = this.image.height;
         this.imageWidth = this.image.width;
         this.imageLongDimension = this.image.width >= this.image.height ? this.image.width : this.image.height;
         this.imageShortDimension = this.image.width < this.image.height ? this.image.width : this.image.height;
         this.imageAspectRatio = this.image.width > this.image.height ? this.image.height / this.image.width : this.image.width / this.image.height;
-        // this.imageAspectRatio = this.image.width > this.image.height ? this.image.width / this.image.height : this.image.height / this.image.width;
         this.orientation = this.image.width >= this.image.height ? 'landscape' : 'portrait'
         this.previousValue = null;
-        this.resolution = 72;
+        this.resolution = null;
 
     }
 }
 
-const artwork = new Artwork('/images/Walker-Evans_New-Orleans-Street-Corner.jpg')
+const artwork = new Artwork()
 
 // CANVAS SETUP //
 const canvas = document.querySelector('#designer');
@@ -32,13 +31,16 @@ const imageWidth = document.querySelector('#imageWidth');
 const imageHeight = document.querySelector('#imageHeight');
 const borderRange = document.querySelector('#borderRange');
 const inputs = document.querySelectorAll('input[type=text]');
+const bubble = document.querySelector('#bubble');
 
 // EVENT HANDELERS //
 let mouseDown = false;
-borderRange.addEventListener('mousedown', () => (mouseDown = true))
-borderRange.addEventListener('mouseup', () => (mouseDown = false))
-borderRange.addEventListener('mousemove', e => mouseDown && handleRangeUpdate(e))
-
+borderRange.addEventListener('mousedown', () => (mouseDown = true));
+borderRange.addEventListener('mouseup', () => (mouseDown = false));
+borderRange.addEventListener('mousemove', (e) => mouseDown && handleRangeUpdate(e));
+borderRange.addEventListener('input', (e) => {
+    bubble.innerHTML = `${(e.target.value / artwork.resolution).toFixed(2)}"`;
+});
 
 imageHeight.addEventListener('change', handleSizeInputChange);
 imageWidth.addEventListener('change', handleSizeInputChange);
@@ -56,11 +58,9 @@ artwork.image.onload = () => {
 
 function calculateImageDesplaySize() {
     if (artwork.orientation == 'landscape') {
-        console.log('P')
         artwork.longDimension = (canvas.width - 300)
         artwork.shortDimension = (canvas.width - 300) * artwork.imageAspectRatio
     } else {
-        console.log('L')
         artwork.longDimension = (canvas.height - 150)
         artwork.shortDimension = (canvas.height - 150) * artwork.imageAspectRatio
     }
@@ -132,30 +132,37 @@ function handleRangeUpdate(e) {
 }
 
 // initialize the image size based on the image aspect ratio at 72dpi
-function setImageSizeInputs(){
-    if (!imageHeight.value || !imageHeight.value) {
-        imageHeight.value = (artwork.imageHeight / 72).toFixed(2)
-        imageWidth.value = (artwork.imageWidth / 72).toFixed(2)
-    } 
+function setImageSizeInputs() {
+    if (!artwork.resolution) {
+        artwork.resolution = 72;
+        imageHeight.value = (artwork.image.naturalHeight / 72).toFixed(2)
+        imageWidth.value = (artwork.image.naturalWidth / 72).toFixed(2)
+    }
 }
 
 // When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
 function handleSizeInputChange(e) { // TODO: change structure and handle Nan
+    const aspectRatio = artwork.imageAspectRatio
+    const target = e.target.value
     if (artwork.orientation = 'landscape') {
         if (e.target == imageWidth) { // changing the width
-            imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2)
-            changeResolution(e.target.value, artwork.previousValue);
+            imageHeight.value = (target * aspectRatio).toFixed(2)
         } else { // changing the height
-            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2);
-            changeResolution(e.target.value, artwork.previousValue);
+            imageWidth.value = (target / aspectRatio).toFixed(2);
         }
     } else { // the artwork orientation is portrait 
         if (e.target == imageWidth) { // changing the width
-            imageHeight.value = (e.target.value * artwork.imageAspectRatio).toFixed(2);
-            changeResolution(e.target.value, artwork.previousValue);
+            imageHeight.value = (target * aspectRatio).toFixed(2);
         } else { // changing the height
-            imageWidth.value = (e.target.value / artwork.imageAspectRatio).toFixed(2);
-            changeResolution(e.target.value, artwork.previousValue);
+            imageWidth.value = (target / aspectRatio).toFixed(2);
         }
+        
     }
+    changeResolution(target, artwork.previousValue);
+    bubble.innerHTML = `${(borderRange.value / artwork.resolution).toFixed(2)}"`;
+}
+
+function changeResolution(currentValue, previousValue) {
+    let factor = previousValue / currentValue; 
+    artwork.resolution = artwork.resolution * factor;
 }
