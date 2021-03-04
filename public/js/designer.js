@@ -156,18 +156,23 @@ function draw(borderSize, frameMolding) {
     loadImage();
   }
 
+function calculateFramePixelsSize(inchesSize) {
+    return inchesSize * artwork.resolution
+}
 
 // Update the canvas when user changes the border size
 function handleRangeUpdate(e) {
     artwork.border = e.target.value;
-    const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
-    draw(e.target.value, frameMoldingInPixels);
+    // const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
+    // draw(e.target.value, frameMoldingInPixels);
+    draw(e.target.value, calculateFramePixelsSize(artwork.frameMolding));
 }
 
 function handleFrameMoldingChange(e) {
     artwork.frameMolding = e.target.value
-    const frameMoldingInPixels = e.target.value * artwork.resolution
-    draw(artwork.border, frameMoldingInPixels);
+    // const frameMoldingInPixels = e.target.value * artwork.resolution
+    // draw(artwork.border, frameMoldingInPixels);
+    draw(artwork.border, calculateFramePixelsSize(e.target.value));
 }
 
 // initialize the image size based on the image aspect ratio at 72dpi
@@ -199,11 +204,12 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
     }
     changeResolution(target, artwork.previousValue);
     resolution.value = artwork.resolution;
-    const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
+    // const frameMoldingInPixels = artwork.frameMolding * artwork.resolution
     const borderSizeInInches = (borderRange.value / artwork.resolution).toFixed(2)
     bubble.innerHTML = `${borderSizeInInches}"`;
     
-    draw(artwork.border, frameMoldingInPixels)
+    // draw(artwork.border, frameMoldingInPixels)
+    draw(artwork.border, calculateFramePixelsSize(artwork.frameMolding))
 
 }
 
