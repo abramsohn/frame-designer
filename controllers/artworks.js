@@ -35,7 +35,9 @@ router.get('/new', (req, res) => {
 
 // create
 router.post('/', (req, res) => {
+    console.log(req.body)
     req.body.user = req.session.currentUser;
+    
     Artwork.create(req.body, (error, createdArtwork) => {
         console.log(createdArtwork)
         res.redirect('/artworks')

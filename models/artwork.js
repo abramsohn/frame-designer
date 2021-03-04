@@ -6,6 +6,7 @@ const artworkSchema = mongoose.Schema({
     height: Number,
     width: Number,
     borders: Number,
+    frameMolding: Number,
     resolution: Number,
 })
 

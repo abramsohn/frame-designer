@@ -10,6 +10,8 @@ class Artwork {
         this.orientation = this.image.width >= this.image.height ? 'landscape' : 'portrait'
         this.previousValue = null;
         this.resolution = null;
+        this.border = null;
+        this.frameMolding = null;
 
     }
 }
@@ -33,6 +35,8 @@ const borderRange = document.querySelector('#borderRange');
 const inputs = document.querySelectorAll('input[type=text]');
 const bubble = document.querySelector('#bubble');
 const resolution = document.querySelector('#resolution');
+const frameMolding = document.querySelector('#frameMolding');
+
 // EVENT HANDELERS //
 let mouseDown = false;
 borderRange.addEventListener('mousedown', () => (mouseDown = true));
@@ -41,6 +45,8 @@ borderRange.addEventListener('mousemove', (e) => mouseDown && handleRangeUpdate(
 borderRange.addEventListener('input', (e) => {
     bubble.innerHTML = `${(e.target.value / artwork.resolution).toFixed(2)}"`;
 });
+
+frameMolding.addEventListener('change', handleFrameMoldingChange);
 
 imageHeight.addEventListener('change', handleSizeInputChange);
 imageWidth.addEventListener('change', handleSizeInputChange);
@@ -99,32 +105,54 @@ function loadImage() {
     }
 }
 
-// let border = 0;
-function draw(borderSize) {
+
+function draw(borderSize, frameMolding) {
+    borderSize = Number(borderSize)
+    frameMolding = Number(frameMolding)
     calculateImageDesplaySize()
     context.clearRect(0, 0, canvas.width, canvas.height);
     // Shadow parameters
     dropShadow();
-    
-    context.beginPath();
+    context.lineWidth = frameMolding;    
+    context.fillStyle = '#fff';
+    // context.beginPath();
     if (artwork.orientation == 'landscape') {
-        context.rect(
-            (canvas.width / 2 - artwork.longDimension / 2) - (Number(borderSize) / 2),
-            (canvas.height / 2 - artwork.shortDimension / 2) - (Number(borderSize) / 2),
-            artwork.longDimension + Number(borderSize),
-            artwork.shortDimension + Number(borderSize),
+        context.fillRect(
+            (canvas.width / 2 - artwork.longDimension / 2) - (borderSize / 2),
+            (canvas.height / 2 - artwork.shortDimension / 2) - (borderSize / 2),
+            artwork.longDimension + borderSize,
+            artwork.shortDimension + borderSize,
+        );
+
+        if (frameMolding) {
+            context.strokeRect(
+                (canvas.width / 2 - artwork.longDimension / 2) - (borderSize / 2) - (frameMolding / 2),
+                (canvas.height / 2 - artwork.shortDimension / 2) - (borderSize / 2) - (frameMolding / 2),
+                artwork.longDimension + borderSize + frameMolding,
+                artwork.shortDimension + borderSize + frameMolding,
             );
+        }
+        
     } else {
-        context.rect(
+        context.fillRect(
             (canvas.width / 2 - artwork.shortDimension / 2) - (Number(borderSize) / 2),
             (canvas.height / 2 - artwork.longDimension / 2) - (Number(borderSize) / 2),
             artwork.shortDimension + Number(borderSize),
             artwork.longDimension + Number(borderSize),
         );
         
+        if (frameMolding) {
+            context.strokeRect(
+                (canvas.width / 2 - artwork.shortDimension / 2) - (Number(borderSize) / 2),
+                (canvas.height / 2 - artwork.longDimension / 2) - (Number(borderSize) / 2),
+                artwork.shortDimension + Number(borderSize),
+                artwork.longDimension + Number(borderSize),
+            );
+        }
     }
-    context.fillStyle = '#fff';
-    context.fill();
+
+    // context.fillStyle = '#fff';
+    // context.fill();
     context.shadowColor = 'transparent';
     loadImage();
   }
@@ -132,7 +160,15 @@ function draw(borderSize) {
 
 // Update the canvas when user changes the border size
 function handleRangeUpdate(e) {
-  draw(e.target.value);
+    artwork.border = e.target.value;
+    const frameMoldingInInch = artwork.frameMolding * artwork.resolution
+    draw(e.target.value, frameMoldingInInch);
+}
+
+function handleFrameMoldingChange(e) {
+    artwork.frameMolding = e.target.value
+    const frameMoldingInInch = e.target.value * artwork.resolution
+    draw(artwork.border, frameMoldingInInch);
 }
 
 // initialize the image size based on the image aspect ratio at 72dpi
@@ -146,7 +182,6 @@ function setImageSizeInputs() {
 
 // When the user update one of the size inputs, automaticly update the other one to conform to the aspect ratio of the image
 function handleSizeInputChange(e) { // TODO: change structure and handle Nan
-    console.log('fire')
     const aspectRatio = artwork.imageAspectRatio
     const target = e.target.value
     if (artwork.orientation = 'landscape') {
@@ -165,7 +200,12 @@ function handleSizeInputChange(e) { // TODO: change structure and handle Nan
     }
     changeResolution(target, artwork.previousValue);
     resolution.value = artwork.resolution;
-    bubble.innerHTML = `${(borderRange.value / artwork.resolution).toFixed(2)}"`;
+    const frameMoldingInInch = artwork.frameMolding * artwork.resolution
+    const borderSizeInInches = (borderRange.value / artwork.resolution).toFixed(2)
+    bubble.innerHTML = `${borderSizeInInches}"`;
+    
+    draw(artwork.border, frameMoldingInInch)
+
 }
 
 
