@@ -2,7 +2,7 @@
 
 ## Overview
 
-Frame Designer is a revolutionary app that lets you preview how your frame will look like before ordering the frame. You can adjust the proportions of the image, white border, and molding in order to get your perfect framed piece.
+Frame Designer is an app that lets you preview how your frame will look like before ordering the frame. You can adjust the proportions of the image, white border, and molding in order to get your perfect framed piece.
 
 Well... maybe not 'your' perfect framed piece, but you can play around with framing a Walker Evans photograph in three diffrent black frame sizes. Pretty great, no?
 
