@@ -35,7 +35,7 @@ router.post('/', (req, res) => {
         } else {
             res.render('layout/index.ejs', {
                 currentUser: req.session.currentUser,
-                template: 'users/new.ejs',
+                template: 'sessions/new.ejs',
                 flash: 'Welcome! Please log in'
             }); 
         }
