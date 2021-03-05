@@ -1,51 +1,56 @@
-<main class="container h-100">
-  <div class="row gx-5">
-    <div class="col col-7 vh-75">
+<main class="container">
+  <div class="row">
+    <div class="eight columns vh65">
       <canvas id="designer" width="300" height="150"
         >Unfortunately your browser does not support canvas.</canvas
       >
     </div>
-    <div class="col col-3 pt-md-5">
+    <div class="four columns mt6p">
       <form action="/artworks" method="POST">
-        <div class="mb-3">
+        <div>
           <label for="title" class="form-label">Title</label>
           <input
             type="text"
             id="title"
             name="title"
-            class="form-control .form-control-lg"
+            placeholder="The Physical Impossibility of Death in the Mind of Someone Living"
+            class="u-full-width"
           />
         </div>
 
-        <fieldset class="input-group mb-3">
-          <legend class="form-label">Image Size</legend>
-          <input
-            id="imageWidth"
-            type="text"
-            class="form-control"
-            placeholder="width"
-            aria-label="width"
-            name="width"
-          />
-          <span class="input-group-text">X</span>
-          <input
-            id="imageHeight"
-            type="text"
-            class="form-control"
-            placeholder="height"
-            aria-label="height"
-            name="height"
-          />
+        <fieldset>
+          <legend>Image Size</legend>
+          <div class="row">
+            <div class="five columns">
+              <input
+                id="imageWidth"
+                type="text"
+                class="u-full-width"
+                placeholder="width"
+                name="width"
+              />
+            </div>
+            <div class="two columns form-connector">X</div>
+            <div class="five columns">
+              <input
+                id="imageHeight"
+                type="text"
+                class="u-full-width"
+                placeholder="height"
+                name="height"
+              />
+            </div>
+          </div>
         </fieldset>
 
-        <div class="mb-3">
-          <label for="borderRange" class="form-label">Borders</label>
+        <div>
+          <label for="borderRange">Borders</label>
           <div>
             <input
               id="borderRange"
               type="range"
               name="borders"
-              class="form-control-range borders-range"
+              class="u-full-width borders-range"
               value="0"
               min="0"
               max="200"
@@ -57,8 +62,8 @@
           </div>
         </div>
 
-        <div class="mb-3">
-          <select id="frameMolding" name="frameMolding" class="form-select">
+        <div>
+          <select id="frameMolding" name="frameMolding" class="u-full-width">
             <option value="0" selected>Choose A Frame</option>
             <option value="0.25">1/4" Face</option>
             <option value="0.5">1/2" Face</option>
@@ -71,7 +76,7 @@
         <input
           type="Submit"
           value="Confirm Design"
-          class="form-control .form-control-lg"
+          class="u-full-width button-primary"
         />
       </form>
     </div>

@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
     User.create(req.body, (error, createdUser) => {
         console.log(error)
         console.log(req.body)
-        res.redirect('/')
+        res.redirect('/sessions/new')
     });
 });
 

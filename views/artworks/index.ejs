@@ -1,10 +1,24 @@
 <main class="container">
-  <h1>Artwork index</h1>
-  <ul>
-    <% artworks.forEach(artwork => { %>
-    <li>
-      <a href="/artworks/<%= artwork.id %>"> <%= artwork.title %></a>
-    </li>
-    <% }) %>
-  </ul>
+  <h2>Your Frames:</h2>
+
+  <table class="u-full-width">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Image Size</th>
+        <th>Border</th>
+        <th>Frame Molding</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% artworks.forEach(artwork => { %>
+      <tr>
+        <td><a href="/artworks/<%= artwork.id %>"> <%= artwork.title %></a></td>
+        <td><%= artwork.height %>x<%= artwork.width %></td>
+        <td><%= (artwork.borders / artwork.resolution).toFixed(2) %>"</td>
+        <td><%= artwork.frameMolding %>" Face</td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </main>

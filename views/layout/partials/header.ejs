@@ -1,86 +1,26 @@
 <header>
-  <nav
-    class="navbar navbar-expand-lg navbar-light p-3 px-md-4 mb-3 bg-body border-bottom"
-  >
-    <div class="container-fluid">
+  <nav class="nav-main">
+    <div>
       <a
-        class="navbar-brand"
+        class="brand"
         href="<% if (currentUser){ %> /artworks <% } else { %> / <% } %> "</a> 
-        Frame Designer</a
+        <span class="logo">FD</span></a
       >
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <% if (currentUser) { %>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/artworks/new"
+         <div class="nav-buttons">
+        <% if (currentUser) { %>
+          <a class="button" href="/artworks/new"
               >Add Artwork</a
             >
-          </li>
-          <% } %>
-          <!-- <li class="nav-item"> -->
-          <!-- <a class="nav-link" href="#">Link</a> -->
-          <!-- </li> -->
-          <!-- <li class="nav-item dropdown"> -->
-          <!-- <a -->
-          <!-- class="nav-link dropdown-toggle" -->
-          <!-- href="#" -->
-          <!-- id="navbarDropdown" -->
-          <!-- role="button" -->
-          <!-- data-bs-toggle="dropdown" -->
-          <!-- aria-expanded="false" -->
-          <!-- > -->
-          <!-- Dropdown -->
-          <!-- </a> -->
-          <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown"> -->
-          <!-- <li><a class="dropdown-item" href="#">Action</a></li> -->
-          <!-- <li><a class="dropdown-item" href="#">Another action</a></li> -->
-          <!-- <li><hr class="dropdown-divider" /></li> -->
-          <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
-          <!-- </ul> -->
-          <!-- </li> -->
-          <!-- <li class="nav-item"> -->
-          <!-- <a -->
-          <!-- class="nav-link disabled" -->
-          <!-- href="#" -->
-          <!-- tabindex="-1" -->
-          <!-- aria-disabled="true" -->
-          <!-- >Disabled</a -->
-          <!-- > -->
-          <!-- </li> -->
-        </ul>
-        <% if (currentUser) { %>
-        <div class="ms-auto">
-          <a class="btn btn-primary" href="/sessions?_method=DELETE"
+          <a class="button button-primary" href="/sessions?_method=DELETE"
             >Log Out
           </a>
-        </div>
+
         <% } else { %>
-        <div>
-          <a class="btn btn-primary" href="/users/new">Sign Up</a>
-          <a class="btn btn-primary" href="/sessions/new">Sign In</a>
+          <a class="button button-primary" href="/users/new">Sign Up</a>
+          <a class="button" href="/sessions/new">Log In</a>
+          <% } %>
         </div>
-        <% } %>
-        <!-- <form class="d-flex"> -->
-        <!-- <input -->
-        <!-- class="form-control me-2" -->
-        <!-- type="search" -->
-        <!-- placeholder="Search" -->
-        <!-- aria-label="Search" -->
-        <!-- /> -->
-        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-        <!-- </form> -->
-      </div>
+      
     </div>
   </nav>
 </header>

@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<main class="container h-100">
-  <div class="row gx-5">
-    <div class="col col-3 pt-md-5">
-      <h1><%= artwork.title %></h1>
-      <dl class="row">
-        <dt class="col-sm-6">Image Size:</dt>
-        <dd class="col-sm-6"><%=artwork.height%> X <%=artwork.width%></dd>
+<main class="container">
+  <div class="row">
+    <div class="four columns mt6p">
+      <h3><%= artwork.title %></h1>
+      <dl>
+        <dt>Image Size:</dt>
+        <dd><%=artwork.height%> X <%=artwork.width%></dd>
 
-        <dt class="col-sm-6">border size:</dt>
-        <dd class="col-sm-6">
+        <dt>border size:</dt>
+        <dd>
           <% if (artwork.borders) { %>
           <span id="borders"
             ><%= (artwork.borders / artwork.resolution).toFixed(2) %></span
@@ -16,20 +15,20 @@
         </dd>
 
         <% if (artwork.frameMolding) { %>
-        <dt class="col-sm-6">Frame Molding:</dt>
-        <dd class="col-sm-6">
+        <dt>Frame Molding:</dt>
+        <dd>
           <span id="frameMolding"><%= artwork.frameMolding %></span>" face
         </dd>
         <% } %>
-
-        <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a>
-        <a href="/artworks/<%= artwork.id %>?_method=DELETE"
-          >Delete This Artwork</a
-        >
       </dl>
+
+      <a href="/artworks/<%= artwork.id %>/edit">Edit This Artwork</a> <br />
+      <a href="/artworks/<%= artwork.id %>?_method=DELETE"
+        >Delete This Artwork</a
+      >
     </div>
 
-    <div class="col col-7 vh-75">
+    <div class="eight columns">
       <img src="<%= artwork.preview %>" alt="" />
     </div>
   </div>

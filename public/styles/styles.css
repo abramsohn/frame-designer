@@ -3,17 +3,85 @@ body {
   height: 100%;
 }
 
-legend {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
+dl {
+  margin-bottom: 25px;
 }
-.signin {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f8f9fa;
+
+dt,
+dd {
+  display: inline-block;
+  width: 40%;
+}
+
+dt {
+  font-weight: bolder;
+}
+
+.nav-main {
+  display: block;
+  width: 100%;
+  padding: 25px;
+}
+
+.nav-main a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-main a:hover,
+.nav-main a:visited {
+  color: black;
+}
+
+.brand {
+  display: inline-block;
+  transform: rotate(15deg);
+  /* position: relative; */
+}
+
+.logo {
+  position: relative;
+  /* border-radius: 30%; */
+  background-color: black;
+  font-size: 2em;
+  color: white;
+  font-weight: bolder;
+  padding: 50px;
+  top: -0px;
+  left: -55px;
+  letter-spacing: 3px;
+}
+
+.hero {
+  width: 100%;
+}
+
+.nav-buttons {
+  float: right;
+  margin-right: 50px;
+}
+
+.tagline {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tagline > h1 {
+  margin-bottom: 0;
+}
+
+.button-primary {
+  color: black !important;
+  background-color: lightgray !important;
+  outline: lightgray !important;
+  border: 1px solid lightgray !important;
+}
+
+.button-primary:hover {
+  color: black !important;
+  background-color: lightgray !important;
+  outline: black !important;
+  border: 1px solid black !important;
 }
 
 .form-signin {
@@ -22,34 +90,29 @@ legend {
   padding: 15px;
   margin: 10% auto auto;
 }
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
+
 .form-signin input[type="text"] {
-  margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
   border: 1px balck solid;
 }
+
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-.form-control:focus {
-  border-color: darkgrey;
-  box-shadow: none;
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+  border: 1px solid black !important;
+  outline: black !important;
+}
+
+.container {
+  margin-top: 50px;
+  max-width: 1200px !important;
 }
 
 .borders-range {
@@ -62,18 +125,18 @@ legend {
   position: relative;
   width: 55px;
   height: 32px;
-  font-size: 1rem;
+  font-size: 1.2em;
   color: black;
   text-align: center;
   border-radius: 3px;
   background: #e9ecef;
   padding: 5px 6px;
   margin-left: 8px;
-  content: "";
+  top: -21px;
 }
 .bubble::after {
   position: absolute;
-  top: px;
+  top: 14px;
   left: -7px;
   width: 0;
   height: 0;
@@ -85,6 +148,16 @@ legend {
 
 /* utilities */
 
-.vh-75 {
-  height: 75vh;
+.vh65 {
+  height: 65vh;
+}
+
+.mt6p {
+  margin-top: 6%;
+}
+
+.form-connector {
+  padding-top: 8px;
+  font-size: 1.2em;
+  text-align: center;
 }

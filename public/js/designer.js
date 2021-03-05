@@ -15,6 +15,15 @@ class Artwork {
     }
 }
 
+window.addEventListener('load', () => {
+    if (resolution.value) { artwork.resolution = Number(resolution.value) };
+    if (frameMolding.value) { artwork.frameMolding = Number(frameMolding.value) };
+    if (borderRange.value) { artwork.border = Number(borderRange.value) };
+    setImageSizeInputs();
+    console.log(artwork.image)
+    draw(artwork.image, borderRange.value ,artwork.frameMolding * artwork.resolution);
+});
+
 const artwork = new Artwork('/images/Walker-Evans_New-Orleans-Street-Corner.jpg')
 
 // CANVAS SETUP //
@@ -55,13 +64,7 @@ inputs.forEach(input => {
     input.addEventListener('focus', (e) => artwork.previousValue = e.target.value);
 });
 
-window.addEventListener('load', () => {
-    if (resolution.value) { artwork.resolution = Number(resolution.value) };
-    if (frameMolding.value) { artwork.frameMolding = Number(frameMolding.value) };
-    if (borderRange.value) { artwork.border = Number(borderRange.value) };
-    setImageSizeInputs();
-    draw(artwork.image, borderRange.value ,artwork.frameMolding * artwork.resolution);
-});
+
 
 // DRAWING METHODS //
 
