@@ -23,8 +23,11 @@ on the front-end:
 
 - Interactive user interface
 - True proportions visualization that took a bunch of math to figure out
+- flash messages to provide feedback to the user
 - Minimalist Design
-  on the back-end:
+
+on the back-end:
+
 - Oh CRUD!
 - User registration and validation with the use of sessions
 - Writing and fetching data from a database

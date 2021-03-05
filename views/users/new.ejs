@@ -22,5 +22,8 @@
 
       <button class="u-full-width button-primary" type="submit">Sign up</button>
     </form>
+    <div id="flash" class="text-center">
+      <% if (typeof flash != 'undefined') { %> <%= flash %> <% } %>
+    </div>
   </div>
 </main>

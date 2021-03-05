@@ -20,15 +20,27 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
     User.findOne({ username: req.body.username }, (error, foundUser) => {
         if (error) { // Database error
-            res.send('There was a thechnical problem') // TODO: handle error better
+            res.render('layout/index.ejs', {
+                currentUser: req.session.currentUser,
+                template: 'sessions/new.ejs',
+                flash: 'we are experiencing technical difficulties, please try again'
+            });
         } else if (!foundUser) {
-            res.send ('no user found') // TODO: Handle error better
+            res.render('layout/index.ejs', {
+                currentUser: req.session.currentUser,
+                template: 'sessions/new.ejs',
+                flash: 'Oh No! Username and password did not match'
+            }); 
         } else { // if user is found
             if(bcrypt.compareSync(req.body.password, foundUser.password)) {
                 req.session.currentUser = foundUser;
                 res.redirect('/artworks');
             } else {
-                res.send('username and password did not match'); // TODO: Handle error better
+                res.render('layout/index.ejs', {
+                currentUser: req.session.currentUser,
+                template: 'sessions/new.ejs',
+                flash: 'Oh No! Username and password did not match'
+            }); 
             }
         }
     });   
@@ -43,3 +55,15 @@ router.delete('/', (req, res) => {
 
 
 module.exports = router;
+
+
+    //     if (error) { // Database error
+    //         res.render('layout/index.ejs', {
+    //             template: 'sessions/new.ejs',
+    //             flash: 'we are experiencing technical difficulties, please try again'
+    // });
+    //     } else if (!foundUser) {
+    //         res.render('layout/index.ejs', {
+    //             template: 'sessions/new.ejs',
+    //             flash: 'Oh No! Username and password did not match'
+    //         });

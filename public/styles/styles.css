@@ -161,3 +161,12 @@ select:focus {
   font-size: 1.2em;
   text-align: center;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
