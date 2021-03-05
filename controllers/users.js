@@ -8,16 +8,6 @@ const User = require('../models/user.js')
 
 // ROUTES //
 
-//index TODO: DEV ROUTE - DELETE
-router.get('/', (req, res) => {
-    User.find({}, (error, allUsers) => {
-        res.render('layout/index.ejs', {
-            users: allUsers,
-            currentUser: req.session.currentUser,
-            template: 'users/index.ejs',
-        });
-    });
-});
 // new
 router.get('/new', (req, res) => {
     res.render('layout/index.ejs', {
